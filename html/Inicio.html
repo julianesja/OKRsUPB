@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">	
+
+	<script  src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  	crossorigin="anonymous"></script>
+   
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+	<script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyCIWPrV6jVYaa0S_xBaaXngwFlPG80BASA",
+	    authDomain: "okrs-709da.firebaseapp.com",
+	    databaseURL: "https://okrs-709da.firebaseio.com",
+	    storageBucket: "okrs-709da.appspot.com",
+	    messagingSenderId: "99046912883"
+	  };
+	  firebase.initializeApp(config);
+	</script>
+</head>
+<body>
+	<nav>
+	    <div class="nav-wrapper">
+			<a href="#" class="brand-logo center">OKRs @UPB</a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">				
+				<li><a href="#" id="btnCerrarSesion">Cerrar Sesión</a></li>
+			</ul>
+	    </div>
+	</nav>
+	<ul id="slide-out" class="side-nav fixed">
+	<li><div class="userView">
+	  <div class="background">
+	    <img src="images/office.jpg">
+	  </div>
+	  <a href="#!user"><img class="circle" src="images/yuna.jpg"></a>
+	  <a href="#!name"><span class="white-text name">John Doe</span></a>
+	  <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
+	</div></li>
+	<li><a href="#!"><i class="material-icons"></i>OKRs</a></li>
+	<li><a href="#!">Mis OKRs</a></li>
+	<li><a href="#!">OKRs Equipo</a></li>
+	<li><a href="#!">OKRs Comite</a></li>
+	</ul>
+
+  <script type="text/javascript">
+  	$(".button-collapse").sideNav();
+  </script>
+</body>
+</html>
