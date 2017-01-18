@@ -5,7 +5,8 @@ $(document).ready(function(){
 		        if (user) {
 		           location.href='inicio.html';
 		        } 
-   		 	}); 
+   		 	}
+   		); 
 	};
 	firebase.auth().signOut().then(
 		function() {

@@ -2,14 +2,16 @@
 <html>
 <head>
 	<title></title>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">	
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+		 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">	
 
-	<script  src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  	crossorigin="anonymous"></script>
-   
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+		<script  src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+		crossorigin="anonymous"></script>
 
-	<script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+		<script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+
 	<script>
 	  // Initialize Firebase
 	  var config = {
@@ -21,6 +23,9 @@
 	  };
 	  firebase.initializeApp(config);
 	</script>
+	<script type="text/javascript" src="../js/require.js"></script>
+	<script type="text/javascript" src="../js/requireConfig.js"></script>
+	<script type="text/javascript" src="../js/Vista/Inicio.js"></script>
 </head>
 <body>
 	<nav>
@@ -32,22 +37,59 @@
 	    </div>
 	</nav>
 	<ul id="slide-out" class="side-nav fixed">
-	<li><div class="userView">
-	  <div class="background">
-	    <img src="images/office.jpg">
-	  </div>
-	  <a href="#!user"><img class="circle" src="images/yuna.jpg"></a>
-	  <a href="#!name"><span class="white-text name">John Doe</span></a>
-	  <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
-	</div></li>
-	<li><a href="#!"><i class="material-icons"></i>OKRs</a></li>
-	<li><a href="#!">Mis OKRs</a></li>
-	<li><a href="#!">OKRs Equipo</a></li>
-	<li><a href="#!">OKRs Comite</a></li>
+		<li><div class="userView">
+			<div class="background">
+			<img id="imgFondo" src="../img/office.jpg">
+			</div>
+			<a href="#!user"><img class="circle" id="imgPerfil" src=""></a>
+			<a href="#!name"><span class="white-text name" id="txtNombre">John Doe</span></a>
+			<a href="#!email"><span class="white-text email" id="txtCorreo">jdandturk@gmail.com</span></a>
+		</div></li>
+		<li><a href="#!"><i class="material-icons"></i>OKRs</a></li>
+		<li><a href="#!">Mis OKRs</a></li>
+		<li><a href="#!">OKRs Equipo</a></li>
+		<li><a href="#!">OKRs Comite</a></li>
 	</ul>
 
-  <script type="text/javascript">
-  	$(".button-collapse").sideNav();
-  </script>
+	<!-- Modal Structure -->
+	<div id="mdlInformacionUsuario" class="modal modal-fixed-footer">
+		<div class="modal-content">
+			<h4>Información del usuario</h4>
+			<p>Para continuar por favor diligencie los siguientes datos</p>
+			<div class="input-field">
+				 <i class="material-icons prefix">account_circle</i>
+				<input placeholder="Nombre" id="txtName" type="text" class="validate">
+				<label for="txtName">Nombre</label>
+	        </div>
+	        <div class="input-field">
+	        	<i class="material-icons prefix">group_work</i>
+			    <select id="lstArea">
+			      <option value="" disabled selected>Seleccione el área</option>
+			      <option value="1">Option 1</option>
+			      <option value="2">Option 2</option>
+			      <option value="3">Option 3</option>
+			    </select>
+		   		<label>Área</label>
+  			</div>
+  			<div class="file-field input-field">
+				<div class="btn">
+					<span>Tú Foto</span>
+					<input type="file" id="txtFile">
+				</div>
+				<div class="file-path-wrapper">
+					<input class="file-path validate" type="text">
+				</div>
+		    </div>
+		    <div class="progress">
+      			<div id="progressCargar" class="determinate" style="width: 0%"></div>
+  			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" id="btnGuardarDatosPersonales" class="modal-action waves-effect waves-green btn-flat ">Guardar</a>
+		</div>
+	</div>
+          
+
+  
 </body>
 </html>

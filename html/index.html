@@ -25,7 +25,14 @@
 	</script>
 
   <script type="text/javascript" src="../js/index.js"></script>
- 
+ <style type="text/css">
+ 	body{
+ 		background:#e0e0e0;
+ 	}
+ 	.Contenido{
+ 		margin-top: 8%;
+ 	}
+ </style>
 </head>
 <body>
 	<nav>
@@ -36,23 +43,30 @@
 	      </ul>
 	    </div>
   </nav>
-	<div class="container">
-    	<div class="row">
-			<div class="col s6 offset-s6">				
-				<div class="input-field col s12 ">
-					<input placeholder="Escriba su Email" id="txtEmail" type="text" class="validate">
-	          		<label for="txtEmail">Email</label>
-				</div>
-				<div class="input-field col s12  ">
-					<input id="txtPassword" type="password" class="validate">
-	          		<label for="password">Password</label>
-				</div>    			
-    		</div>
-    		<div class="col s6 offset-s6">
-    			<a class="waves-effect waves-light btn" id="btnAceptar">Ingresar</a>
+	
+    	<div class="row Contenido">
+			<div class="col s4 offset-s4 ">	
+				<div class="card ">	
+					<div class="card-content">	
+						<div class="row">
+							<div class="input-field col s12 ">
+								<input placeholder="Escriba su Email" id="txtEmail" type="text" class="validate">
+				          		<label for="txtEmail">Email</label>
+							</div>
+							<div class="input-field col s12">
+								<input id="txtPassword" type="password" class="validate">
+				          		<label for="password">Password</label>
+							</div>    			
+				    		
+				    		<div class="col s6 offset-s6">
+				    			<a class="waves-effect waves-light btn" id="btnAceptar">Ingresar</a>
+				    		</div>
+						</div>							
+			    	</div>
+	    		</div>
     		</div>
     	</div>
-    </div>
+  
 
 </body>
 </html>
