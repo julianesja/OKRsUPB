@@ -13,9 +13,14 @@ define(["Modelo/InicioModel"]
 									}else{
 										var UsuarioSnapshot=snapshot.val();
 										var storage = firebase.storage();
-										var pathReference = storage.ref('pictures/'+user.uid);
-										console.log(pathReference);
-										$("#imgPerfil");
+										var storageRef = storage.ref();
+										storageRef.child('pictures/'+user.uid).getDownloadURL().then(
+											function(url) {
+										  		console.log(url);
+										  		$("#imgPerfil").attr("src",url)
+											}).catch(function(error) {
+										  
+										});										
 										$("#txtNombre").html(UsuarioSnapshot.name);
 										$("#txtCorreo").html(UsuarioSnapshot.email);
 									}
@@ -47,16 +52,20 @@ define(["Modelo/InicioModel"]
 				task.on("state_changed"
 					,function(snapshot){
 						var porcentaje=(snapshot.bytesTransferred/snapshot.totalBytes)*100;							
-						progressCargar.css("width",porcentaje+"%");					
+						progressCargar.css("width",porcentaje+"%");
+						if(porcentaje>98){
+							firebase.database().ref('users/' + firebase.auth().currentUser.uid).set(
+							{
+							    name: txtName,
+							    email: firebase.auth().currentUser.email,
+							    profile_picture : firebase.auth().currentUser.uid,
+							    area:{name:NombreOpcion, value:txtlstArea}
+							});
+							$('#mdlInformacionUsuario').modal('close');
+						}					
 					}
 				);
-				firebase.database().ref('users/' + firebase.auth().currentUser.uid).set(
-				{
-				    name: txtName,
-				    email: firebase.auth().currentUser.email,
-				    profile_picture : firebase.auth().currentUser.uid,
-				    area:{name:NombreOpcion, value:txtlstArea}
-				  });
+				
 
     		}  		    
         }

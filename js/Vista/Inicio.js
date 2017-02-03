@@ -7,6 +7,9 @@
 			var txtFile=$("#txtFile");
 			var btnGuardarDatosPersonales=$("#btnGuardarDatosPersonales");
 			var progressCargar=$("#progressCargar");
+			var btnMiOKRs=$("#btnMiOKRs");
+			var PanelPrincila=$("#PanelPrincila");
+			var btnNuevoOkrs=$("#btnNuevoOkrs");
 			/*Metodos*/
 
 			/*Validar*/
@@ -27,7 +30,7 @@
 			$('.modal').modal({dismissible: false,});
 			$(".button-collapse").sideNav();
 			$('select').material_select();
-			
+			btnNuevoOkrs.hide();
 			InicioControlador.Inicializacion();
 			InicioControlador.CargarAreas($("#lstArea"));
 			btnGuardarDatosPersonales.on("click",function(){
@@ -44,6 +47,10 @@
 
 
 				}
+			});
+
+			btnMiOKRs.on("click",function(){
+				PanelPrincila.load("misokrs.html");
 			});
 
 		});
