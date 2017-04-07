@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+<head>
+	<title></title>
+		<link rel="stylesheet" type="text/css" href="js/sweet/sweetalert.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+		 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">	
+
+		<script  src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+		crossorigin="anonymous"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.css"/>
+ 		<script type="text/javascript" src="js/sweet/sweetalert.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.js"></script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+		<style type="text/css">
+			
+			header, main, footer {
+		      padding-left: 300px;
+		    }
+
+		    @media only screen and (max-width : 992px) {
+		      header, main, footer {
+		        padding-left: 0;
+		      }
+		    }
+		    .nav-wrapper{
+		    	background-color: rgb(255,0,24);
+		    }
+		</style>
+	
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyB-0aXJm6KimM5q5ZmzRSKYT-ZWCZzRmhk",
+    authDomain: "okrs-813dd.firebaseapp.com",
+    databaseURL: "https://okrs-813dd.firebaseio.com",
+    projectId: "okrs-813dd",
+    storageBucket: "okrs-813dd.appspot.com",
+    messagingSenderId: "1013024847239"
+  };
+  firebase.initializeApp(config);
+</script>
+	<script type="text/javascript" src="js/typeahead.js"></script>
+	<script type="text/javascript" src="js/require.js"></script>
+	<script type="text/javascript" src="js/requireConfig.js"></script>
+	<script type="text/javascript" src="js/Vista/Inicio.js"></script>
+</head>
+<body>
+	<header>
+		<div class="navbar-fixed">
+			<nav>		  
+			    <div class="nav-wrapper">
+					<a href="#" class="brand-logo center">OKRs  @UPB</a>
+					<ul id="nav-mobile" class="left hide-on-med-and-down">	
+						<li ><a href="#" id="btnNuevoOkrs" >OKR</a></li>
+						<li><a href="#" id="btnCerrarSesion">Cerrar Sesi&oacute;n</a></li>	
+								
+					</ul>
+			    </div> 
+			</nav>
+		</div> 
+		
+
+		<!-- Inicio agregar usuario -->
+		<div id="mdlInformacionUsuario" class="modal modal-fixed-footer">
+			<div class="modal-content">
+				<h4>Informaci&oacute;n del usuario</h4>
+				<p>Para continuar por favor diligencie los siguientes datos</p>
+				<div class="input-field">
+					 <i class="material-icons prefix">account_circle</i>
+					<input placeholder="Nombre" id="txtName" type="text" class="validate">
+					<label for="txtName">Nombre</label>
+		        </div>
+		        <div class="input-field">
+		        	<i class="material-icons prefix">group_work</i>
+				    <select id="lstArea">
+				      <option value="" disabled selected>Seleccione el área</option>
+				      <option value="1">Option 1</option>
+				      <option value="2">Option 2</option>
+				      <option value="3">Option 3</option>
+				    </select>
+			   		<label>Área</label>
+	  			</div>
+	  			<div class="file-field input-field">
+					<div class="btn">
+						<span>Tú Foto</span>
+						<input type="file" id="txtFile">
+					</div>
+					<div class="file-path-wrapper">
+						<input class="file-path validate" type="text">
+					</div>
+			    </div>
+			    <div class="progress">
+	      			<div id="progressCargar" class="determinate" style="width: 0%"></div>
+	  			</div>
+			</div>
+			<div class="modal-footer">
+				<a href="#!" id="btnGuardarDatosPersonales" class="modal-action waves-effect waves-green btn-flat ">Guardar</a>
+			</div>		
+		</div>
+		<!-- fin Modal agregar usuario -->
+
+		<!-- Inicio Modal OKRs -->
+		<div id="mdlOkrs" class="modal modal-fixed-footer" style="height:100%">
+			<div class="modal-content">
+				<h4>Insertar Objetivo</h4>
+				<div class="row">
+					<div class="input-field col s12">
+						 <i class="material-icons prefix">fitness_center</i>
+						<input placeholder="Descripci&oacute;n" id="txtObjetivoInsertar" type="text" class="validate">
+						<label for="txtObjetivoInsertar">Descripci&oacute;n</label>
+			        </div>			       
+			        <div  class="col s12">
+			        	<div class="col s4"><a id="btnInsertarResultado" class="waves-effect waves-light btn">Insertar</a></div>
+			        	<div class="col s4"><a id="btnEliminarResultado" class="waves-effect waves-light btn">Eliminar</a></div>
+			        	<div class="col s4"><a id="btnVerResultado" class="waves-effect waves-light btn">Ver</a></div>
+			        </div>
+			        <div  class="col s12">
+		        	<!-- Inicio de tabla -->
+		        	<table id="dtResultadosTabla" class="display selectedTable" cellspacing="0" width="100%">
+				        <thead>
+				            <tr>
+				                <th>Resultado</th>				               
+				            </tr>
+				        </thead>				        
+				        <tbody>
+				           
+				        </tbody>
+				    </table>
+		        	<!-- FIn de la tabla-->
+		        </div>
+		        </div>
+		        
+		       
+			</div>
+			<div class="modal-footer">				
+				<a href="#!" id="btnGuardarObjetivos" class="modal-action waves-effect waves-green btn-flat ">Guardar</a>
+				<a href="#!" id="btnCancelarObjetivos" class="modal-action waves-effect waves-green btn-flat ">Cancelar</a>
+			</div>		
+		</div>
+		<!-- fin Modal OKRs-->
+
+		<!-- Inicio Modal Resultados -->
+		<div id="mdlResultado" class="modal modal-fixed-footer" style="height:100%">
+			<div class="modal-content">
+				<h4>Resultado</h4>
+				<div class="row">
+					<div class="input-field col s12">
+						 <i class="material-icons prefix">fitness_center</i>
+						<input placeholder="Descripci&oacute;n" id="txtResultadoInsertar" type="text" class="validate">
+						<label for="txtResultadoInsertar">Descripci&oacute;n</label>
+			        </div>
+			        <div  class="col s12">
+			        	<div class="col s4"><a  id="btnInsertarTarea" class="waves-effect waves-light btn">Insertar Tarea</a></div>
+			        	<div class="col s4"><a id="btnEliminarTarea" class="waves-effect waves-light btn">Eliminar Tarea</a></div>
+			        	<div class="col s4"><a id="btnVerTarea" class="waves-effect waves-light btn">Ver Tare</a></div>
+			        </div>
+			        <div  class="col s12">
+		        	<!-- Inicio de tabla -->
+		        	<table id="dtTareas" class="display selectedTable" cellspacing="0" width="100%">
+				        <thead>
+				            <tr>
+				                <th>Tarea</th>
+				                <th>Fecha Inicio</th>
+				                <th>Fecha Fin</th>				                
+				            </tr>
+				        </thead>				        
+				        <tbody>
+				            
+				        </tbody>
+				    </table>
+		        	<!-- FIn de la tabla-->
+		        </div>
+		        </div>
+		        
+		       
+			</div>
+			<div class="modal-footer">
+				<a href="#!" id="btnGuardarResultado" class="modal-action waves-effect waves-green btn-flat ">Guardar</a>
+				<a href="#!" id="btnCancelarResultado" class="modal-action waves-effect waves-green btn-flat ">Cancelar</a>
+			</div>		
+		</div>
+		<!-- fin Modal OKRs-->
+
+		<!-- Inicio Modal Resultados -->
+		<div id="mdlTarea" class="modal modal-fixed-footer" style="height:100%">
+			<div class="modal-content">
+				<h4>Tarea</h4>
+				<div class="row">
+					<div class="input-field col s12">
+						<i class="material-icons prefix">fitness_center</i>
+						<input placeholder="Descripci&oacute;n" id="txtTareaInsertar" type="text" class="validate">
+						<label for="txtTareaInsertar">Descripci&oacute;n</label>
+			        </div>
+			        <div class="input-field col s6">
+						<i class="material-icons prefix">date_range</i>
+						<input type="date"  id="txtTareaFechaInicio"  class="datepicker">
+						<label for="txtTareaFechaInicio">Fecha Inicio</label>
+			        </div>
+			        <div class="input-field col s6">
+						<i class="material-icons prefix">date_range</i>
+						<input type="date"  id="txtTareaFechaFin"  class="datepicker">
+						<label for="txtTareaFechaFin">Fecha Fin</label>
+			        </div>
+		        </div>
+		    </div>       
+		       
+			
+			<div class="modal-footer">
+				<a href="#!" id="btnGuardarTarea" class="modal-action waves-effect waves-green btn-flat ">Guardar</a>
+				<a href="#!" id="btnCancelarTarea" class="modal-action waves-effect waves-green btn-flat ">Cancelar</a>
+			</div>
+			
+		</div>
+		<!-- fin Modal OKRs-->
+	</header>
+	<ul id="slide-out" class="side-nav" style="transform: translateX(0px);">
+		<li><div class="userView">
+			<div class="background">
+			<img id="imgFondo" src="img/office.jpg">
+			</div>
+			<a href="#!user"><img class="circle" id="imgPerfil" src=""></a>
+			<a href="#!name"><span class="white-text name" id="txtNombre">John Doe</span></a>
+			<a href="#!email"><span class="white-text email" id="txtCorreo">jdandturk@gmail.com</span></a>
+		</div></li>
+		<li class="search">
+			<div class="input-field col s12">
+				<i class="material-icons">search</i><input id="txtsearch" data-provide="typeahead" type="text">
+		    </div>			
+			      
+        </li>
+			
+	</ul>
+	<main>
+	    <div id="PanelPrincila" class="container">
+
+		</div>
+	</main>
+
+</body>
+</html>

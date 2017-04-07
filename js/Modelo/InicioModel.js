@@ -1,7 +1,9 @@
 define([]
 	, function() {
         return {
-    		ConsultarArea:function(){
+        	CerrarSesion:function(){
+
+    		},ConsultarArea:function(){
 
     		},GuardarPersona:function(){
 

@@ -1,7 +1,10 @@
-define(["Modelo/InicioModel"]
-	, function() {
+define(["Modelo/InicioModel"
+		,"clases/Objetivos"]
+	, function(InicioModel,Objetivos) {
         return {
-    		Inicializacion:function(){    			
+    		Inicializacion:function(PanelPrincila){   
+    		//obtencion sesion usuario 			
+    			var that=this;
 				firebase.auth().onAuthStateChanged(
 					function(user) {
 				        if (user) {
@@ -16,20 +19,36 @@ define(["Modelo/InicioModel"]
 										var storageRef = storage.ref();
 										storageRef.child('pictures/'+user.uid).getDownloadURL().then(
 											function(url) {
-										  		console.log(url);
+										  		
 										  		$("#imgPerfil").attr("src",url)
 											}).catch(function(error) {
 										  
 										});										
 										$("#txtNombre").html(UsuarioSnapshot.name);
 										$("#txtCorreo").html(UsuarioSnapshot.email);
+
+										that.MostrarObjetivos(PanelPrincila,firebase.auth().currentUser.uid);
 									}
 								}
 							);
-				        } 	
+				        }else{
+				        	window.location.href="index.html";
+				        }
+
 					}
 		   		); 
+
+
     		}, 
+
+            CerrarSesion:function(){  
+                firebase.auth().signOut().then(function() {
+                   window.location.href="index.html";
+                }, function(error) {
+                   console.log(error);
+                   });
+             }, 
+
     		CargarAreas:function(Lista){
     			var starCountRef = firebase.database().ref('Areas');
 				starCountRef.on('value'
@@ -67,6 +86,81 @@ define(["Modelo/InicioModel"]
 				);
 				
 
+    		}
+    		,getFechaInicial:function(lstResultado){
+    			var FechaInicial;
+    			var i=0;
+    			$.each(lstResultado,function(index, value){
+    				$.each(value.Tareas,function(index1,value1){
+    					
+    					if(i==0){
+    						FechaInicial=new Date(value1.FechaInicio);
+    						i++;	
+    					}
+    					FechaActual=new Date(value1.FechaInicio);
+    					if(FechaInicial>FechaActual){
+    						FechaInicial=FechaActual;
+    					}
+    					
+    				});
+    			});
+    			return FechaInicial;
+
+    		}
+    		,getFechaFinal:function(lstResultado){
+    			var FechaFinal;
+    			var i=0;
+    			$.each(lstResultado,function(index, value){
+    				$.each(value.Tareas,function(index1,value1){    					
+    					if(i==0){
+    						FechaFinal=new Date(value1.FechaFin);
+    						i++;	
+    					}
+    					FechaActual=new Date(value1.FechaFin);
+    					if(FechaFinal<FechaActual){
+    						FechaFinal=FechaActual;
+    					}
+    					
+    				});
+    			});
+    			return FechaFinal;
+    		}
+
+    		,GuardarObjetivo:function(Objetivo,mdlOkrs, idObjetivo){
+    			
+    			var FechaInicial=this.getFechaInicial(Objetivo.lstResultado);
+    			var FechaFinal=this.getFechaFinal(Objetivo.lstResultado);
+    			Objetivo["FechaInicial"]=FechaInicial.toString();
+    			Objetivo["FechaFinal"]=FechaFinal.toString();  	
+    			/*Inicio de validacion inserccion de objetivo*/
+
+    			if(idObjetivo==null || idObjetivo==undefined){                    
+    				firebase.database().ref('Objetivos/' + firebase.auth().currentUser.uid).push(Objetivo);
+    			}else{                    
+    				firebase.database().ref('Objetivos/' + firebase.auth().currentUser.uid+"/"+idObjetivo).set(Objetivo);
+    			}
+                mdlOkrs.modal("close");
+    			
+				/*Fin de validacion e inserccion de objetivo*/
+    			
+    			
+    		},
+    		/*Mostrar Objetivos*/
+    		MostrarObjetivos:function(Contenedor,IdUsuario){
+    			Contenedor.html("");
+    			var Editar=false;
+    			if(IdUsuario==firebase.auth().currentUser.uid){
+    				Editar=true;
+    			}
+    			var starCountRef=firebase.database().ref('Objetivos/'+IdUsuario)
+	        	starCountRef.on("value",
+	        		function(snapshot) {
+	        			Contenedor.html("");
+						if(snapshot.val()!=null){
+							Objetivos.InsertObjetivos(Contenedor,snapshot.val(),Objetivos,Editar);
+						}
+					}
+				);	
     		}  		    
         }
     }

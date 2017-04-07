@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>	
+	<title>OKRs UPB</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+
+	
+
+	<script  src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+	
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyB-0aXJm6KimM5q5ZmzRSKYT-ZWCZzRmhk",
+    authDomain: "okrs-813dd.firebaseapp.com",
+    databaseURL: "https://okrs-813dd.firebaseio.com",
+    projectId: "okrs-813dd",
+    storageBucket: "okrs-813dd.appspot.com",
+    messagingSenderId: "1013024847239"
+  };
+  firebase.initializeApp(config);
+</script>
+
+  <script type="text/javascript" src="js/index.js"></script>
+ <style type="text/css">
+ 	body{
+ 		background:#e0e0e0;
+ 	}
+ 	.Contenido{
+ 		margin-top: 9%;
+ 	}
+ 	.nav-wrapper{
+	   	background-color: rgb(255,0,24);
+	}
+ </style>
+</head>
+<body>
+	<nav>
+	    <div class="nav-wrapper">
+	      <a href="#" class="brand-logo center">OKR UPB ROCKS</a>
+	      <ul id="nav-mobile" class="left hide-on-med-and-down">
+	        
+	      </ul>
+	    </div>
+  </nav>
+	
+    <div class="row Contenido">
+		<div class="col s4 offset-s4 ">	
+			<div class="card ">	
+				<div class="card-content">	
+					<div class="row">
+						<div class="input-field col s12 ">
+							<input placeholder="Escriba su Email" id="txtEmail" type="text" class="validate" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" required/>
+				          	<label for="txtEmail">Email</label>
+						</div>
+						<div class="input-field col s12">
+							<input id="txtPassword" type="password" class="validate" required="password"/>
+				          	<label for="password">Password</label>
+						</div>    			
+				    	<div class="col s6 offset-s6">
+				    		<input  type="submit" class="waves-effect waves-light btn" id="btnAceptar">
+				    		<br/>
+				    	</div>
+				    	<div class="input-field col s12 m12">
+				    		<a class="waves-effect waves-light btn col s8 m8 offset-s2 offset-m2" id="btnGoogle"><i class="material-icons left"></i>Google</a>
+				    	</div>
+					</div>							
+			    </div>
+	    	</div>
+    	</div>
+    </div>
+</body>
+</html>
